@@ -16,36 +16,36 @@
   grid-template-rows: 1fr 1fr;
   gap: 20px;
   padding: 0;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .tile {
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  padding: 24px;
-  min-height: 140px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+  padding: 25px 30px;
+  min-height: 130px;
   display: flex;
   flex-direction: column;
   transition: all 0.2s ease-in-out;
-  
-  &:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
-  }
 }
 
 .tileHeader {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   margin-bottom: 12px;
-  color: "#000000";
+  color: #333333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .tileText {
-  font-size: 13px;
-  color: "#333333";
+  font-size: 14px;
+  color: #555555;
   line-height: 1.5;
   flex-grow: 1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: normal;
 }
 
 .editableField {
@@ -54,22 +54,25 @@
   border: none;
   padding: 4px;
   background: transparent;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   
   &:focus {
-    background-color: "[theme:neutralLighterAlt, default:#f8f8f8]";
-    border: 1px solid "[theme:neutralLight, default:#edebe9]";
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
   }
 }
 
 .headerField {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  color: "#000000";
+  color: #333333;
+  margin-bottom: 8px;
 }
 
 .textField {
-  font-size: 13px;
-  color: "#333333";
+  font-size: 14px;
+  color: #555555;
   line-height: 1.5;
   min-height: 60px;
+  font-weight: normal;
 }
