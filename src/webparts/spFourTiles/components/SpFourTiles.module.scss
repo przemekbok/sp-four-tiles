@@ -6,7 +6,9 @@
   background-color: transparent; // Ensure webpart background matches the page section
   width: 100%;
   max-width: 100%;
-  
+  display: flex;
+  justify-content: center;
+
   &.teams {
     font-family: $ms-font-family-fallbacks;
   }
@@ -16,25 +18,20 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 20px;
+  gap: 40px;
   padding: 0;
-  width: 100%;
+  width: 80%;
   margin: 0;
 }
 
 .tile {
   background-color: white;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   border-radius: 0;
   padding: 30px;
-  min-height: 120px;
+  min-height: 60px;
   display: flex;
   flex-direction: column;
   transition: box-shadow 0.2s ease-in-out;
-  
-  &:hover {
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.10);
-  }
 }
 
 .tileHeader {
