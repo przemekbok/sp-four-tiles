@@ -1,34 +1,66 @@
 @import '~@fluentui/react/dist/sass/References.scss';
 
 .spFourTiles {
-  overflow: hidden;
-  padding: 1em;
   color: "[theme:bodyText, default: #323130]";
   color: var(--bodyText);
+  background-color: transparent; // Ensure webpart background matches the page section
+  
   &.teams {
     font-family: $ms-font-family-fallbacks;
   }
 }
 
-.welcome {
-  text-align: center;
+.tilesContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  padding: 0;
 }
 
-.welcomeImage {
+.tile {
+  background-color: white;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tileHeader {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: "[theme:link, default:#03787c]";
+  color: var(--link);
+}
+
+.tileText {
+  font-size: 14px;
+  flex-grow: 1;
+}
+
+.editableField {
   width: 100%;
-  max-width: 420px;
+  outline: none;
+  border: none;
+  padding: 4px;
+  background: transparent;
+  
+  &:focus {
+    background-color: "[theme:neutralLighterAlt, default:#f8f8f8]";
+    border: 1px solid "[theme:neutralLight, default:#edebe9]";
+  }
 }
 
-.links {
-  a {
-    text-decoration: none;
-    color: "[theme:link, default:#03787c]";
-    color: var(--link); // note: CSS Custom Properties support is limited to modern browsers only
+.headerField {
+  font-size: 18px;
+  font-weight: 600;
+  color: "[theme:link, default:#03787c]";
+  color: var(--link);
+}
 
-    &:hover {
-      text-decoration: underline;
-      color: "[theme:linkHovered, default: #014446]";
-      color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
-    }
-  }
+.textField {
+  font-size: 14px;
+  min-height: 60px;
 }
