@@ -1,41 +1,96 @@
 import * as React from 'react';
 import styles from './SpFourTiles.module.scss';
-import type { ISpFourTilesProps } from './ISpFourTilesProps';
-import { escape } from '@microsoft/sp-lodash-subset';
+import type { ISpFourTilesProps, ITileProps } from './ISpFourTilesProps';
+import { DisplayMode } from '@microsoft/sp-core-library';
+
+interface ITileComponentProps {
+  tile: ITileProps;
+  displayMode: number;
+  onHeaderChange: (newValue: string) => void;
+  onTextChange: (newValue: string) => void;
+}
+
+const Tile: React.FC<ITileComponentProps> = (props) => {
+  const { tile, displayMode, onHeaderChange, onTextChange } = props;
+  const isEdit = displayMode === DisplayMode.Edit;
+
+  const handleHeaderChange = (event: React.FormEvent<HTMLDivElement>) => {
+    onHeaderChange(event.currentTarget.textContent || '');
+  };
+
+  const handleTextChange = (event: React.FormEvent<HTMLDivElement>) => {
+    onTextChange(event.currentTarget.textContent || '');
+  };
+
+  return (
+    <div className={styles.tile}>
+      {isEdit ? (
+        <>
+          <div
+            className={`${styles.editableField} ${styles.headerField}`}
+            contentEditable={true}
+            onBlur={handleHeaderChange}
+            dangerouslySetInnerHTML={{ __html: tile.header }}
+          />
+          <div
+            className={`${styles.editableField} ${styles.textField}`}
+            contentEditable={true}
+            onBlur={handleTextChange}
+            dangerouslySetInnerHTML={{ __html: tile.text }}
+          />
+        </>
+      ) : (
+        <>
+          <div className={styles.tileHeader}>{tile.header}</div>
+          <div className={styles.tileText}>{tile.text}</div>
+        </>
+      )}
+    </div>
+  );
+};
 
 export default class SpFourTiles extends React.Component<ISpFourTilesProps> {
   public render(): React.ReactElement<ISpFourTilesProps> {
     const {
-      description,
-      isDarkTheme,
-      environmentMessage,
       hasTeamsContext,
-      userDisplayName
+      displayMode,
+      tile1,
+      tile2,
+      tile3,
+      tile4
     } = this.props;
+
+    const updateTileProperty = (tileName: string, propertyName: string, newValue: string) => {
+      this.props.updateProperty(`${tileName}.${propertyName}`, newValue);
+    };
 
     return (
       <section className={`${styles.spFourTiles} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div className={styles.welcome}>
-          <img alt="" src={isDarkTheme ? require('../assets/welcome-dark.png') : require('../assets/welcome-light.png')} className={styles.welcomeImage} />
-          <h2>Well done, {escape(userDisplayName)}!</h2>
-          <div>{environmentMessage}</div>
-          <div>Web part property value: <strong>{escape(description)}</strong></div>
-        </div>
-        <div>
-          <h3>Welcome to SharePoint Framework!</h3>
-          <p>
-            The SharePoint Framework (SPFx) is a extensibility model for Microsoft Viva, Microsoft Teams and SharePoint. It&#39;s the easiest way to extend Microsoft 365 with automatic Single Sign On, automatic hosting and industry standard tooling.
-          </p>
-          <h4>Learn more about SPFx development:</h4>
-          <ul className={styles.links}>
-            <li><a href="https://aka.ms/spfx" target="_blank" rel="noreferrer">SharePoint Framework Overview</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-graph" target="_blank" rel="noreferrer">Use Microsoft Graph in your solution</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-teams" target="_blank" rel="noreferrer">Build for Microsoft Teams using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-viva" target="_blank" rel="noreferrer">Build for Microsoft Viva Connections using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-store" target="_blank" rel="noreferrer">Publish SharePoint Framework applications to the marketplace</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-api" target="_blank" rel="noreferrer">SharePoint Framework API reference</a></li>
-            <li><a href="https://aka.ms/m365pnp" target="_blank" rel="noreferrer">Microsoft 365 Developer Community</a></li>
-          </ul>
+        <div className={styles.tilesContainer}>
+          <Tile 
+            tile={tile1} 
+            displayMode={displayMode} 
+            onHeaderChange={(newValue) => updateTileProperty('tile1', 'header', newValue)} 
+            onTextChange={(newValue) => updateTileProperty('tile1', 'text', newValue)} 
+          />
+          <Tile 
+            tile={tile2} 
+            displayMode={displayMode} 
+            onHeaderChange={(newValue) => updateTileProperty('tile2', 'header', newValue)} 
+            onTextChange={(newValue) => updateTileProperty('tile2', 'text', newValue)} 
+          />
+          <Tile 
+            tile={tile3} 
+            displayMode={displayMode} 
+            onHeaderChange={(newValue) => updateTileProperty('tile3', 'header', newValue)} 
+            onTextChange={(newValue) => updateTileProperty('tile3', 'text', newValue)} 
+          />
+          <Tile 
+            tile={tile4} 
+            displayMode={displayMode} 
+            onHeaderChange={(newValue) => updateTileProperty('tile4', 'header', newValue)} 
+            onTextChange={(newValue) => updateTileProperty('tile4', 'text', newValue)} 
+          />
         </div>
       </section>
     );
