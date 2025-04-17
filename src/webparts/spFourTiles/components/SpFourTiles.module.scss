@@ -20,23 +20,31 @@
 
 .tile {
   background-color: white;
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  padding: 24px;
   min-height: 140px;
   display: flex;
   flex-direction: column;
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
 }
 
 .tileHeader {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 10px;
-  color: "[theme:link, default:#03787c]";
-  color: var(--link);
+  margin-bottom: 12px;
+  color: "#000000";
 }
 
 .tileText {
-  font-size: 14px;
+  font-size: 13px;
+  color: "#333333";
+  line-height: 1.5;
   flex-grow: 1;
 }
 
@@ -54,13 +62,14 @@
 }
 
 .headerField {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  color: "[theme:link, default:#03787c]";
-  color: var(--link);
+  color: "#000000";
 }
 
 .textField {
-  font-size: 14px;
+  font-size: 13px;
+  color: "#333333";
+  line-height: 1.5;
   min-height: 60px;
 }
