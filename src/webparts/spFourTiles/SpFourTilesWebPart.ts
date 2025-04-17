@@ -17,6 +17,7 @@ export interface ISpFourTilesWebPartProps {
   tile2: ITileProps;
   tile3: ITileProps;
   tile4: ITileProps;
+  [key: string]: any; // Add index signature to allow string indexing
 }
 
 export default class SpFourTilesWebPart extends BaseClientSideWebPart<ISpFourTilesWebPartProps> {
@@ -69,18 +70,17 @@ export default class SpFourTilesWebPart extends BaseClientSideWebPart<ISpFourTil
         tile4: this.properties.tile4,
         displayMode: this.displayMode,
         updateProperty: (propertyPath: string, newValue: string) => {
-          const oldValue = this.properties;
           // Split the property path into parts
           const pathParts = propertyPath.split('.');
           
           // Handle nested property updates
           if (pathParts.length > 1) {
-            const parentProp = pathParts[0];
+            const parentProp = pathParts[0] as keyof ISpFourTilesWebPartProps;
             const childProp = pathParts[1];
             
             // Create a new object with the updated property
             const updatedObject = {
-              ...oldValue[parentProp],
+              ...this.properties[parentProp],
               [childProp]: newValue
             };
             
@@ -88,7 +88,8 @@ export default class SpFourTilesWebPart extends BaseClientSideWebPart<ISpFourTil
             this.properties[parentProp] = updatedObject;
           } else {
             // Update simple property
-            this.properties[propertyPath] = newValue;
+            const propName = propertyPath as keyof ISpFourTilesWebPartProps;
+            this.properties[propName] = newValue;
           }
           
           // Trigger re-render
