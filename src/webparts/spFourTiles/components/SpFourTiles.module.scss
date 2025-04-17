@@ -4,6 +4,7 @@
   color: "[theme:bodyText, default: #323130]";
   color: var(--bodyText);
   background-color: transparent; // Ensure webpart background matches the page section
+  width: 100%;
   
   &.teams {
     font-family: $ms-font-family-fallbacks;
@@ -14,35 +15,33 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 20px;
+  gap: 16px;
   padding: 0;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .tile {
   background-color: white;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   border-radius: 0;
-  padding: 25px 30px;
-  min-height: 130px;
+  padding: 20px 25px;
+  min-height: 110px;
   display: flex;
   flex-direction: column;
-  transition: all 0.2s ease-in-out;
 }
 
 .tileHeader {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 12px;
-  color: #333333;
+  margin-bottom: 8px;
+  color: "#333333";
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .tileText {
   font-size: 14px;
-  color: #555555;
-  line-height: 1.5;
+  color: "#666666";
+  line-height: 1.4;
   flex-grow: 1;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: normal;
@@ -57,22 +56,22 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   
   &:focus {
-    background-color: #f5f5f5;
+    background-color: #f7f7f7;
     border: 1px solid #e0e0e0;
   }
 }
 
 .headerField {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  color: #333333;
+  color: "#333333";
   margin-bottom: 8px;
 }
 
 .textField {
   font-size: 14px;
-  color: #555555;
-  line-height: 1.5;
+  color: "#666666";
+  line-height: 1.4;
   min-height: 60px;
   font-weight: normal;
 }
