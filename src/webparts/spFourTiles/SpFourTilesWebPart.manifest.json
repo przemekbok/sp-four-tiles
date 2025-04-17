@@ -18,11 +18,26 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Advanced
     "group": { "default": "Advanced" },
-    "title": { "default": "sp-four-tiles" },
-    "description": { "default": "sp-four-tiles description" },
-    "officeFabricIconFontName": "Page",
+    "title": { "default": "Four Tiles Navigation" },
+    "description": { "default": "Shows four configurable tiles for easy navigation" },
+    "officeFabricIconFontName": "GridViewMedium",
     "properties": {
-      "description": "sp-four-tiles"
+      "tile1": {
+        "header": "Cloud Entry",
+        "text": "Architecture reviews, POC preparation, and hands-on workshops"
+      },
+      "tile2": {
+        "header": "Cloud Operations",
+        "text": "Managed DevOps services for your applications, infrastructure, and services"
+      },
+      "tile3": {
+        "header": "Cloud Adoption",
+        "text": "Application assessment, migration, and optimization for cost and performance"
+      },
+      "tile4": {
+        "header": "Cloud Solutions",
+        "text": "Cloud-native applications using the power of serverless connected services"
+      }
     }
   }]
 }
