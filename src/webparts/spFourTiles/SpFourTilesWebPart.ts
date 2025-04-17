@@ -10,65 +10,94 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import * as strings from 'SpFourTilesWebPartStrings';
 import SpFourTiles from './components/SpFourTiles';
-import { ISpFourTilesProps } from './components/ISpFourTilesProps';
+import { ISpFourTilesProps, ITileProps } from './components/ISpFourTilesProps';
 
 export interface ISpFourTilesWebPartProps {
-  description: string;
+  tile1: ITileProps;
+  tile2: ITileProps;
+  tile3: ITileProps;
+  tile4: ITileProps;
 }
 
 export default class SpFourTilesWebPart extends BaseClientSideWebPart<ISpFourTilesWebPartProps> {
 
   private _isDarkTheme: boolean = false;
-  private _environmentMessage: string = '';
+
+  protected onInit(): Promise<void> {
+    // Initialize default property values if they don't exist
+    if (!this.properties.tile1) {
+      this.properties.tile1 = {
+        header: 'Cloud Entry',
+        text: 'Architecture reviews, POC preparation, and hands-on workshops'
+      };
+    }
+    
+    if (!this.properties.tile2) {
+      this.properties.tile2 = {
+        header: 'Cloud Operations',
+        text: 'Managed DevOps services for your applications, infrastructure, and services'
+      };
+    }
+    
+    if (!this.properties.tile3) {
+      this.properties.tile3 = {
+        header: 'Cloud Adoption',
+        text: 'Application assessment, migration, and optimization for cost and performance'
+      };
+    }
+    
+    if (!this.properties.tile4) {
+      this.properties.tile4 = {
+        header: 'Cloud Solutions',
+        text: 'Cloud-native applications using the power of serverless connected services'
+      };
+    }
+    
+    return Promise.resolve();
+  }
 
   public render(): void {
     const element: React.ReactElement<ISpFourTilesProps> = React.createElement(
       SpFourTiles,
       {
-        description: this.properties.description,
         isDarkTheme: this._isDarkTheme,
-        environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        userDisplayName: this.context.pageContext.user.displayName,
+        tile1: this.properties.tile1,
+        tile2: this.properties.tile2,
+        tile3: this.properties.tile3,
+        tile4: this.properties.tile4,
+        displayMode: this.displayMode,
+        updateProperty: (propertyPath: string, newValue: string) => {
+          const oldValue = this.properties;
+          // Split the property path into parts
+          const pathParts = propertyPath.split('.');
+          
+          // Handle nested property updates
+          if (pathParts.length > 1) {
+            const parentProp = pathParts[0];
+            const childProp = pathParts[1];
+            
+            // Create a new object with the updated property
+            const updatedObject = {
+              ...oldValue[parentProp],
+              [childProp]: newValue
+            };
+            
+            // Update the property
+            this.properties[parentProp] = updatedObject;
+          } else {
+            // Update simple property
+            this.properties[propertyPath] = newValue;
+          }
+          
+          // Trigger re-render
+          this.render();
+        }
       }
     );
 
     ReactDom.render(element, this.domElement);
-  }
-
-  protected onInit(): Promise<void> {
-    return this._getEnvironmentMessage().then(message => {
-      this._environmentMessage = message;
-    });
-  }
-
-
-
-  private _getEnvironmentMessage(): Promise<string> {
-    if (!!this.context.sdks.microsoftTeams) { // running in Teams, office.com or Outlook
-      return this.context.sdks.microsoftTeams.teamsJs.app.getContext()
-        .then(context => {
-          let environmentMessage: string = '';
-          switch (context.app.host.name) {
-            case 'Office': // running in Office
-              environmentMessage = this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentOffice : strings.AppOfficeEnvironment;
-              break;
-            case 'Outlook': // running in Outlook
-              environmentMessage = this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentOutlook : strings.AppOutlookEnvironment;
-              break;
-            case 'Teams': // running in Teams
-            case 'TeamsModern':
-              environmentMessage = this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentTeams : strings.AppTeamsTabEnvironment;
-              break;
-            default:
-              environmentMessage = strings.UnknownEnvironment;
-          }
-
-          return environmentMessage;
-        });
-    }
-
-    return Promise.resolve(this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentSharePoint : strings.AppSharePointEnvironment);
   }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
@@ -106,10 +135,50 @@ export default class SpFourTilesWebPart extends BaseClientSideWebPart<ISpFourTil
           },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: 'Tile 1',
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('tile1.header', {
+                  label: 'Header'
+                }),
+                PropertyPaneTextField('tile1.text', {
+                  label: 'Text',
+                  multiline: true
+                })
+              ]
+            },
+            {
+              groupName: 'Tile 2',
+              groupFields: [
+                PropertyPaneTextField('tile2.header', {
+                  label: 'Header'
+                }),
+                PropertyPaneTextField('tile2.text', {
+                  label: 'Text',
+                  multiline: true
+                })
+              ]
+            },
+            {
+              groupName: 'Tile 3',
+              groupFields: [
+                PropertyPaneTextField('tile3.header', {
+                  label: 'Header'
+                }),
+                PropertyPaneTextField('tile3.text', {
+                  label: 'Text',
+                  multiline: true
+                })
+              ]
+            },
+            {
+              groupName: 'Tile 4',
+              groupFields: [
+                PropertyPaneTextField('tile4.header', {
+                  label: 'Header'
+                }),
+                PropertyPaneTextField('tile4.text', {
+                  label: 'Text',
+                  multiline: true
                 })
               ]
             }
