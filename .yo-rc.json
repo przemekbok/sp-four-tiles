@@ -8,12 +8,12 @@
       "@microsoft/teams-js": "2.24.0"
     },
     "version": "1.20.0",
-    "libraryName": "cccloud",
+    "libraryName": "sp-four-tiles",
     "libraryId": "e25f2a8c-be67-402e-beae-02f661a948c8",
     "environment": "spo",
     "packageManager": "npm",
-    "solutionName": "cccloud",
-    "solutionShortDescription": "cccloud description",
+    "solutionName": "sp-four-tiles",
+    "solutionShortDescription": "sp-four-tiles description",
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
     "componentType": "webpart"
