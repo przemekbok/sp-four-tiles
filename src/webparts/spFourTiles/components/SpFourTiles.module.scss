@@ -6,8 +6,6 @@
   background-color: transparent; // Ensure webpart background matches the page section
   width: 100%;
   max-width: 100%;
-  display: flex;
-  justify-content: center;
 
   &.teams {
     font-family: $ms-font-family-fallbacks;
@@ -20,7 +18,7 @@
   grid-template-rows: 1fr 1fr;
   gap: 40px;
   padding: 0;
-  width: 80%;
+  width: 100%;
   margin: 0;
 }
 
